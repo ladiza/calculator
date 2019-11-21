@@ -1,0 +1,110 @@
+html {
+  height: 100%;
+}
+
+body {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  background-color: rgb(217, 233, 250);
+  display: flex;
+  font-family: 'Alata', sans-serif;
+  font-size: 20px;
+}
+
+.calc-container {
+  display: grid;
+  grid:
+  'disp'
+  'btns';
+  width: 500px;
+  height: 600px;
+  margin: auto;
+  border-radius: 10px;
+  box-sizing: border-box;
+  background-color: rgb(133, 128, 128);
+}
+
+.display {
+  display: grid;
+  grid:
+  'mem'
+  'buff';
+  background-color: rgb(206, 230, 236);
+  margin: 10px;
+  margin-bottom: 0;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.buttons {
+  display: grid;
+  grid:
+  'CE CE C C'
+  'seven eight nein plus'
+  'four five six minus'
+  'one two three mul'
+  'zeros dots equals div';
+  gap: 10px 10px;
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+.buttons > div {
+  text-align: center;
+  box-sizing: border-box;
+  border-radius: 10px;
+  background-color: rgb(179, 205, 255);
+}
+
+.buttons > div:hover {
+  background-color: rgb(253, 162, 167);
+}
+
+
+
+.buttons > div > p:hover {
+  transform: scale(1.4);
+}
+
+.clear-everything { grid-area: CE;}
+.memory { 
+  grid-area: mem;
+  height: 70px;
+}
+.buffer {
+  grid-area: buff;
+  height: 70px;
+}
+
+.clear {grid-area: C;}
+.num1 {grid-area: one;}
+.num2 {grid-area: two;}
+.num3 {grid-area: three;}
+.num4 {grid-area: four;}
+.num5 {grid-area: five;}
+.num6 {grid-area: six;}
+.num7 {grid-area: seven;}
+.num8 {grid-area: eight;}
+.num9 {grid-area: nein;}
+.num0 {grid-area: zeros;}
+.operation-add {grid-area: plus;}
+.operation-subtract {grid-area: minus;}
+.operation-divide { grid-area: div;}
+.operation-multiply {grid-area: mul;}
+.symbol-point {grid-area: dots;}
+
+.equals {
+  grid-area: equals;
+}
+
+.display {
+  grid-area: disp;
+}
+
+.buttons {
+  grid-area: btns;
+}
