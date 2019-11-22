@@ -5,6 +5,7 @@ const display = document.querySelector('#disp');
 const memory = document.querySelector('#memory');
 const symbols = document.querySelectorAll('#symbol');
 const equals = document.querySelector('.equals');
+const dot = document.querySelector('.symbol-point');
 
 let mem = {firstNum: 0, secondNum: 0, operator: ''};
 let equalsUsed = false;
@@ -72,8 +73,8 @@ equals.addEventListener('click', () => {
 
 function compute (prvnicislo, druhecislo, picovinamezi) {
   
-  let firstNum = parseInt(prvnicislo);
-  let secondNum = parseInt(druhecislo);
+  let firstNum = parseFloat(prvnicislo);
+  let secondNum = parseFloat(druhecislo);
   let result = null;
   switch (picovinamezi) {
     case '+':
@@ -107,6 +108,16 @@ function divide (a, b) {
 function multiply (a, b) {
   return a * b;
 }
+
+dot.addEventListener('click', () => {
+  if (display.textContent.includes('.')) {
+    alert("You can't insert two decimal points!");
+  } else if (display.textContent.length == 0) {
+    alert("You have to write something first!");
+  } else {
+  display.textContent += '.';
+  }
+});
 
 clearEverything.addEventListener('click', () => {
   display.textContent = '';
