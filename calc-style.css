@@ -38,6 +38,12 @@ body {
   margin-bottom: 0;
   border-radius: 10px;
   box-sizing: border-box;
+  text-align: right;
+}
+
+.display > div {
+  margin: 10px;
+  box-sizing: border-box;
 }
 
 .buttons {
@@ -64,20 +70,24 @@ body {
   background-color: rgb(253, 162, 167);
 }
 
-
-
 .buttons > div > p:hover {
   transform: scale(1.4);
 }
 
 .clear-everything { grid-area: CE;}
+
 .memory { 
   grid-area: mem;
   height: 70px;
 }
-.buffer {
+
+.disp {
   grid-area: buff;
   height: 70px;
+}
+
+#disp, #memory {
+  margin: 10px;
 }
 
 .clear {grid-area: C;}
@@ -103,6 +113,7 @@ body {
 
 .display {
   grid-area: disp;
+  font-size: 30px;
 }
 
 .buttons {
