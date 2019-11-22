@@ -4,13 +4,21 @@ const erase = document.querySelector('.clear');
 const display = document.querySelector('#disp');
 const memory = document.querySelector('#memory');
 const symbols = document.querySelectorAll('#symbol');
+const equals = document.querySelector('.equals');
 
 let mem = {firstNum: 0, secondNum: 0, operator: ''};
+let equalsUsed = false;
 
 nums.forEach(number => {
   number.addEventListener('click', () => {
     if (display.textContent.length < 22) {
-    display.textContent += number.textContent;
+      if (equalsUsed == true) {
+        memory.textContent = '';
+        display.textContent += number.textContent;
+        equalsUsed = false;
+      } else {
+      display.textContent += number.textContent;
+      }
     } else {
       alert('Display is full! You can enter max 22 numbers.')
     }
@@ -21,7 +29,15 @@ symbols.forEach(symbol => {
   symbol.addEventListener('click', () => {
 
     if (display.textContent.length == 0) {
-      alert('Write a number first!');
+      if (memory.textContent.length == 0) {
+        alert('Write a number first!');
+      } else if (memory.textContent.length > 0) {
+        mem.firstNum = memory.textContent;
+        mem.operator = symbol.textContent;
+        memory.textContent = memory.textContent + ' ' + symbol.textContent;
+        equalsUsed = false;
+      }
+      
     } else if (memory.textContent.includes('+') || 
                memory.textContent.includes('-') ||
                memory.textContent.includes('*') || 
@@ -32,17 +48,27 @@ symbols.forEach(symbol => {
       memory.textContent = result + ' ' + symbol.textContent;
       mem.firstNum = result;
       mem.operator = symbol.textContent;
-      console.log(mem.operator);
       display.textContent = '';
     } else {
       mem.firstNum = display.textContent;
       mem.operator = symbol.textContent;
-      console.log(mem.operator);
       memory.textContent = display.textContent + ' ' + symbol.textContent;
       display.textContent = '';
     };
   }); 
 });
+
+equals.addEventListener('click', () => {
+  if (display.textContent.length == 0) {
+    alert('You have to input all arguments!');
+  } else {
+  mem.secondNum = display.textContent;
+  result = compute(mem.firstNum, mem.secondNum, mem.operator);
+  memory.textContent = result;
+  display.textContent = '';
+  equalsUsed = true;
+  }
+})
 
 function compute (prvnicislo, druhecislo, picovinamezi) {
   
