@@ -5,39 +5,41 @@
     <title>Calculator</title>
     <link rel="stylesheet" type="text/css" href="calc-style.css"/>
     <link href="https://fonts.googleapis.com/css?family=Alata&display=swap" rel="stylesheet">
+     
   </head>
   <body>
     <div class="calc-container">  <!-- rows are separated by blank lines -->
       
       <div class="display">
-        <div class="memory"><p></p></div>
-        <div class="buffer"><p></p></div>
+        <div class="memory"><p id="memory"></p></div>
+        <div class="disp"><p id="disp"></p></div>
       </div>
 
       <div class="buttons">
         <div class="clear-everything"><p>CE</p></div>
         <div class="clear"><p>C</p></div>
         
-        <div class="num7"><p>7</p></div>
-        <div class="num8"><p>8</p></div>
-        <div class="num9"><p>9</p></div>
+        <div class="num7" id="num"><p>7</p></div>
+        <div class="num8" id="num"><p>8</p></div>
+        <div class="num9" id="num"><p>9</p></div>
         <div class="operation-add"><p>+</p></div>
         
-        <div class="num4"><p>4</p></div>
-        <div class="num5"><p>5</p></div>
-        <div class="num6"><p>6</p></div>
+        <div class="num4" id="num"><p>4</p></div>
+        <div class="num5" id="num"><p>5</p></div>
+        <div class="num6" id="num"><p>6</p></div>
         <div class="operation-subtract"><p>-</p></div>
         
-        <div class="num1"><p>1</p></div>
-        <div class="num2"><p>2</p></div>
-        <div class="num3"><p>3</p></div>
+        <div class="num1" id="num"><p>1</p></div>
+        <div class="num2" id="num"><p>2</p></div>
+        <div class="num3" id="num"><p>3</p></div>
         <div class="operation-multiply"><p>&#215</p></div>
         
-        <div class="num0"><p>0</p></div>
+        <div class="num0" id="num"><p>0</p></div>
         <div class="symbol-point"><p>.</p></div>
         <div class="equals"><p>=</p></div>
         <div class="operation-divide"><p>&#247</p></div>
       </div>
     </div>
+    <script src="calc-script.js"></script>
   </body>
 </html>
