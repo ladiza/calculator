@@ -2,24 +2,15 @@ const nums = document.querySelectorAll('#num');
 const clearEverything = document.querySelector('.clear-everything');
 const erase = document.querySelector('.clear');
 const display = document.querySelector('#disp');
-const memory = document.querySelector('#memory');
 const symbols = document.querySelectorAll('#symbol');
 const equals = document.querySelector('.equals');
 const dot = document.querySelector('.symbol-point');
 
-let mem = {firstNum: 0, secondNum: 0, operator: ''};
-let equalsUsed = false;
 
 nums.forEach(number => {
   number.addEventListener('click', () => {
     if (display.textContent.length < 22) {
-      if (equalsUsed == true) {
-        memory.textContent = '';
         display.textContent += number.textContent;
-        equalsUsed = false;
-      } else {
-      display.textContent += number.textContent;
-      }
     } else {
       alert('Display is full! You can enter max 22 numbers.')
     }
@@ -30,32 +21,16 @@ symbols.forEach(symbol => {
   symbol.addEventListener('click', () => {
 
     if (display.textContent.length == 0) {
-      if (memory.textContent.length == 0) {
         alert('Write a number first!');
-      } else if (memory.textContent.length > 0) {
-        mem.firstNum = memory.textContent;
-        mem.operator = symbol.textContent;
-        memory.textContent = memory.textContent + ' ' + symbol.textContent;
-        equalsUsed = false;
-      }
-      
-    } else if (memory.textContent.includes('+') || 
-               memory.textContent.includes('-') ||
-               memory.textContent.includes('*') || 
-               memory.textContent.includes('/')) {
-      mem.secondNum = display.textContent;
-      let result = compute(mem.firstNum, mem.secondNum, mem.operator);
-
-      memory.textContent = result + ' ' + symbol.textContent;
-      mem.firstNum = result;
-      mem.operator = symbol.textContent;
-      display.textContent = '';
+    } else if ((display.textContent.charAt(display.textContent.length -2) == '/')||
+              (display.textContent.charAt(display.textContent.length -2) == '*')||
+              (display.textContent.charAt(display.textContent.length -2) == '+')||
+              (display.textContent.charAt(display.textContent.length -2) == '-')) {
+      display.textContent = display.textContent.slice(0, display.textContent.length - 2);
+      display.textContent += symbol.textContent + ' ';
     } else {
-      mem.firstNum = display.textContent;
-      mem.operator = symbol.textContent;
-      memory.textContent = display.textContent + ' ' + symbol.textContent;
-      display.textContent = '';
-    };
+      display.textContent += ' ' + symbol.textContent + ' ';
+    }
   }); 
 });
 
@@ -63,51 +38,62 @@ equals.addEventListener('click', () => {
   if (display.textContent.length == 0) {
     alert('You have to input all arguments!');
   } else {
-  mem.secondNum = display.textContent;
-  result = compute(mem.firstNum, mem.secondNum, mem.operator);
-  memory.textContent = result;
-  display.textContent = '';
-  equalsUsed = true;
+  result = compute(display.textContent);
+  console.log(display.textContent);
+  memory.textContent = display.textContent + ' ' + '=';
+  display.textContent = result;
   }
 })
 
-function compute (prvnicislo, druhecislo, picovinamezi) {
-  
-  let firstNum = parseFloat(prvnicislo);
-  let secondNum = parseFloat(druhecislo);
-  let result = null;
-  switch (picovinamezi) {
-    case '+':
-      result = sum(firstNum, secondNum);
-      break;
-    case '-':
-      result = subtract(firstNum, secondNum);
-      break;
-    case '*':
-      result = multiply(firstNum, secondNum);
-      break;
-    case '/':
-      result = divide(firstNum, secondNum);
-      break;
+displaySave = display.textContent;
+
+function compute (display1) {
+
+  let displayArr = display1.split(" ");
+
+  for(let i = 0; i < displayArr.length; i++) {
+    let result = null;
+    if (displayArr[i]=='/') {
+      result = divide(displayArr[i-1], displayArr[i+1]);
+      displayArr.splice(i-1, 3, result);
+      i=0;
+    } else if (displayArr[i]=='*') {
+      result = multiply(displayArr[i-1], displayArr[i+1]);
+      displayArr.splice(i-1, 3, result);
+      i=0;
+    }
+  };
+
+  for(let i = 0; i < displayArr.length; i++) {
+    let result = null;
+    if (displayArr[i]=='+') {
+      result = sum(parseFloat(displayArr[i-1]), parseFloat(displayArr[i+1]));
+      displayArr.splice(i-1, 3, result);
+      i=0;
+    } else if (displayArr[i]=='-') {
+      result = subs(displayArr[i-1], displayArr[i+1]);
+      displayArr.splice(i-1, 3, result);
+      i=0;
+    }
+  };
+  return displayArr;
+};
+
+  function divide(a,b) {
+    return a/b;
   }
-  return result;
-}
 
-function sum (a, b) {
-  return a + b;
-}
+  function multiply (a,b) {
+    return a*b;
+  }
 
-function subtract (a, b) {
-  return a - b;
-}
+  function sum(a,b) {
+    return a+b;
+  }
 
-function divide (a, b) {
-  return a / b;
-}
-
-function multiply (a, b) {
-  return a * b;
-}
+  function subs(a,b) {
+    return a-b;
+  }
 
 dot.addEventListener('click', () => {
   if (display.textContent.includes('.')) {
