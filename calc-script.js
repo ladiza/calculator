@@ -23,9 +23,9 @@ symbols.forEach(symbol => {
     if (display.textContent.length == 0) {
         alert('Write a number first!');
     } else if ((display.textContent.charAt(display.textContent.length -2) == '/')||
-              (display.textContent.charAt(display.textContent.length -2) == '*')||
-              (display.textContent.charAt(display.textContent.length -2) == '+')||
-              (display.textContent.charAt(display.textContent.length -2) == '-')) {
+               (display.textContent.charAt(display.textContent.length -2) == '*')||
+               (display.textContent.charAt(display.textContent.length -2) == '+')||
+               (display.textContent.charAt(display.textContent.length -2) == '-'))  {
       display.textContent = display.textContent.slice(0, display.textContent.length - 2);
       display.textContent += symbol.textContent + ' ';
     } else {
@@ -37,11 +37,19 @@ symbols.forEach(symbol => {
 equals.addEventListener('click', () => {
   if (display.textContent.length == 0) {
     alert('You have to input all arguments!');
-  } else {
+  } else if ((display.textContent.charAt(display.textContent.length -2) == '/')||
+             (display.textContent.charAt(display.textContent.length -2) == '*')||
+             (display.textContent.charAt(display.textContent.length -2) == '+')||
+             (display.textContent.charAt(display.textContent.length -2) == '-'))  {
+  display.textContent = display.textContent.slice(0, display.textContent.length - 3); 
+  console.log(display.textContent);            
   result = compute(display.textContent);
-  console.log(display.textContent);
   memory.textContent = display.textContent + ' ' + '=';
   display.textContent = result;
+  } else {
+    result = compute(display.textContent);
+    memory.textContent = display.textContent + ' ' + '=';
+    display.textContent = result;
   }
 })
 
