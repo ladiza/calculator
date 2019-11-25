@@ -5,11 +5,15 @@ const display = document.querySelector('#disp');
 const symbols = document.querySelectorAll('#symbol');
 const equals = document.querySelector('.equals');
 const dot = document.querySelector('.symbol-point');
+let isResult = false;
 
 
 nums.forEach(number => {
   number.addEventListener('click', () => {
-    if (display.textContent.length < 22) {
+    if (isResult == true) {
+      display.textContent = number.textContent;
+      isResult = false;
+    } else if (display.textContent.length < 22) {
         display.textContent += number.textContent;
     } else {
       alert('Display is full! You can enter max 22 numbers.')
@@ -45,11 +49,13 @@ equals.addEventListener('click', () => {
   console.log(display.textContent);            
   result = compute(display.textContent);
   memory.textContent = display.textContent + ' ' + '=';
-  display.textContent = result;
+  display.textContent = result + ' ';
+  isResult = true;
   } else {
     result = compute(display.textContent);
     memory.textContent = display.textContent + ' ' + '=';
-    display.textContent = result;
+    display.textContent = result + ' ';
+    isResult = true;
   }
 })
 
